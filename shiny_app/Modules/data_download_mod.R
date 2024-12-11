@@ -27,6 +27,9 @@ downloadDataButtonsUI <- function(id) {
                         icon = NULL),
     shiny::downloadLink(ns("downloadJSON"), 
                         label = "as JSON", 
+                        icon = NULL),
+    shiny::downloadLink(ns("downloadParquet"), 
+                        label = "as Parquet", 
                         icon = NULL)
   )
 }
@@ -73,6 +76,14 @@ downloadDataButtonsServer <- function(id, data, selectedColumns = NULL) {
         jsonlite::write_json(as.list(getData()), file)
       }
       
+    )
+
+    # Download as parquet
+    output$downloadParquet <- downloadHandler(
+      filename = paste0("scotpho_data_extract_", Sys.Date(), ".parquet"),
+      content = function(file) {
+        nanoparquet::write_parquet(as.list(getData()), file)
+      }
     )
     
   })
