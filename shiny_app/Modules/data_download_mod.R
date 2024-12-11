@@ -82,7 +82,7 @@ downloadDataButtonsServer <- function(id, data, selectedColumns = NULL) {
     output$downloadParquet <- downloadHandler(
       filename = paste0("scotpho_data_extract_", Sys.Date(), ".parquet"),
       content = function(file) {
-        nanoparquet::write_parquet(as.list(getData()), file)
+        nanoparquet::write_parquet(getData(), file)
       }
     )
     
